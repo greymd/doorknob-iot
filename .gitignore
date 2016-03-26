@@ -7,6 +7,7 @@
 !.gitignore
 !.vimproject
 !.gitignore.py
+!.gitkeep
 *~
 *.sw[a-p]
 .directory
@@ -23,5 +24,4 @@ Icon?
 .Trashes
 
 # Project's original
-server/door_operations
-server/sqlite_test/sqlitest
+server/bin/*
