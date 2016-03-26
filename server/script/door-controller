@@ -18,5 +18,5 @@ if [ -z $available_device ]; then
     exit 1
 fi
 
-/usr/sbin/door-controller-impl --devfile=$available_device
+/usr/sbin/door-controller-impl --devfile=$available_device $@
 exit 0
