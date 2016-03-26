@@ -1,18 +1,4 @@
-#define DEFAULT_DEVICE "/dev/ttyACM0"
-#define IS_CLOSED 0
-#define IS_OPENED 1
-#define IS_ON 0
-#define IS_OFF 1
-
-#include <asm/termbits.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <time.h>
-#include <unistd.h>
+#include "./door-common.h"
 
 void close_door(int fd) {
 	char action = '0';
@@ -32,6 +18,7 @@ int get_door_state(int fd) {
 	int state = -1;
 	int magnetValue = -1;
 	int numOfvar = -1;
+	int magnetTry = 0;
 	char action = '2';
 	char res[128];
 	do {
@@ -40,6 +27,11 @@ int get_door_state(int fd) {
 		write(fd, &action, 1);
 		read(fd, res, sizeof(res));
 		numOfvar = sscanf(res, "[%d]", &magnetValue);
+		printf("magnet_value : %d\n", magnetValue);
+		if(magnetTry >= 1000){
+			exit(1);
+		}
+		magnetTry++;
 	} while (numOfvar != 1);
 
 	//North or Souch of magnet value
@@ -53,18 +45,13 @@ int get_door_state(int fd) {
 
 
 int main(int argc, char *argv[]) {
-	int now_door_state = -1;
-	int old_door_state = -1;
-	int now_felica_flag = -1;
-	int old_felica_flag = -1;
-
 	/* variables for serial communication */
 	int fd, c;
 	struct termios oldtio, newtio;
 	char buf[1024];
 	char devfile[1024];
 	char action;
-	int baudrate = 9600;
+	int baudrate = DEFAULT_BAUDRATE;
 
 	/* settings for serial communication */
 	bzero(buf, sizeof(buf));
