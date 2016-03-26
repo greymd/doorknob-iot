@@ -1,0 +1,27 @@
+# Specific
+*.orig
+
+# From: https://github.com/github/gitignore/blob/master/Global/Linux.gitignore
+.*
+!.htaccess
+!.gitignore
+!.vimproject
+!.gitignore.py
+*~
+*.sw[a-p]
+.directory
+
+# From: https://github.com/github/gitignore/blob/master/Global/Windows.gitignore
+Thumbs.db
+Desktop.ini
+
+# From https://github.com/github/gitignore/blob/master/Global/OSX.gitignore
+.DS_Store
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Project's original
+server/door_operations
+server/sqlite_test/sqlitest
