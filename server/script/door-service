@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+available_device=""
+device_path="/dev/"
+device_pattern_unix='ttyACM'
+device_pattern_mac='tty.usbmodem'
+
+
+if (ls "$device_path" | grep -q "$device_pattern_unix"); then
+    available_device="$device_path"$(ls "$device_path" | grep "$device_pattern_unix" | head -n 1)
+fi
+
+ls "$device_path" | grep "$device_pattern_mac"
+if (ls "$device_path" | grep -q "$device_pattern_mac"); then
+    available_device="$device_path"$(ls "$device_path" | grep "$device_pattern_mac" | head -n 1)
+fi
+
+if [ -z $available_device ]; then
+    exit 1
+fi
+
+/usr/sbin/door-service-impl --devfile=$available_device
+exit 0
