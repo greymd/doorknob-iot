@@ -1,3 +1,3 @@
 #!/bin/sh
-gcc ./src/door-common.c ./src/door-service.c -o ./bin/door-service
-gcc ./src/door-common.c ./src/door-controller.c -o ./bin/door-controller
+gcc ./src/door-common.c ./src/door-service-impl.c -o ./bin/door-service-impl
+gcc ./src/door-common.c ./src/door-controller-impl.c -o ./bin/door-controller-impl

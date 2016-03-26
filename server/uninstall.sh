@@ -1,9 +1,8 @@
 #!/bin/sh
-
 set -eu
 
-sudo rm /usr/sbin/door-controller
-sudo rm /usr/sbin/door-service
+sudo rm /usr/sbin/door-controller-impl
+sudo rm /usr/sbin/door-service-impl
 sudo rm /etc/init.d/door-rc
 
 # Uninstall
