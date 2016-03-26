@@ -24,4 +24,4 @@ Icon?
 .Trashes
 
 # Project's original
-server/shell/bin/*
+server/tool/bin/*
