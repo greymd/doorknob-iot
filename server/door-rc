@@ -19,7 +19,7 @@
 
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
-DESC="Entrance auto lock server"
+DESC="Server service for the physical door management."
 NAME=door-service
 DAEMON=/usr/sbin/$NAME
 DAEMON_ARGS=""
