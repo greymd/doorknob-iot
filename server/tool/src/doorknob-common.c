@@ -1,4 +1,4 @@
-#include "door-common.h"
+#include "doorknob-common.h"
 
 void close_door(int fd) {
 	char action = ACTION_CLOSE;

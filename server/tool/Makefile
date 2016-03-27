@@ -12,36 +12,36 @@ DAEMONDIR?=     /etc/init.d
 INSTALL_PROGRAM=${INSTALL} -m ${BINMODE}
 BINMODE=        755
 
-all: ${DEST}/door-service-impl ${DEST}/door-controller-impl
+all: ${DEST}/doorknob-run-impl ${DEST}/doorknob-impl
 
-${DEST}/door-common.o: ${SRC}/door-common.h ${SRC}/door-common.c
-	${CC} ./src/door-common.c -c -o ./bin/door-common.o
+${DEST}/doorknob-common.o: ${SRC}/doorknob-common.h ${SRC}/doorknob-common.c
+	${CC} ./src/doorknob-common.c -c -o ./bin/doorknob-common.o
 
-${DEST}/door-service-impl: ${DEST}/door-common.o ${SRC}/door-service-impl.c
-	${CC} ${DEST}/door-common.o ${SRC}/door-service-impl.c -o ${DEST}/door-service-impl
+${DEST}/doorknob-run-impl: ${DEST}/doorknob-common.o ${SRC}/doorknob-run-impl.c
+	${CC} ${DEST}/doorknob-common.o ${SRC}/doorknob-run-impl.c -o ${DEST}/doorknob-run-impl
 
-${DEST}/door-controller-impl: ${DEST}/door-common.o ${SRC}/door-controller-impl.c
-	${CC} ${DEST}/door-common.o ${SRC}/door-controller-impl.c -o ${DEST}/door-controller-impl
+${DEST}/doorknob-impl: ${DEST}/doorknob-common.o ${SRC}/doorknob-impl.c
+	${CC} ${DEST}/doorknob-common.o ${SRC}/doorknob-impl.c -o ${DEST}/doorknob-impl
 
 clean:
-	${RM} ${DEST}/door-common.o
-	${RM} ${DEST}/door-service-impl
-	${RM} ${DEST}/door-controller-impl
+	${RM} ${DEST}/doorknob-common.o
+	${RM} ${DEST}/doorknob-run-impl
+	${RM} ${DEST}/doorknob-impl
 
 install:
-	sudo ${INSTALL_PROGRAM} ${DEST}/door-controller-impl ${BINDIR}/door-controller-impl
-	sudo ${INSTALL_PROGRAM} ${DEST}/door-service-impl    ${BINDIR}/door-service-impl
-	sudo ${INSTALL_PROGRAM} ${SCRIPT}/door-controller   ${BINDIR}/door-controller
-	sudo ${INSTALL_PROGRAM} ${SCRIPT}/door-service      ${BINDIR}/door-service
-	sudo ${INSTALL_PROGRAM} ${SCRIPT}/doornob           ${DAEMONDIR}/doornob
-	sudo update-rc.d doornob defaults
+	sudo ${INSTALL_PROGRAM} ${DEST}/doorknob-impl ${BINDIR}/doorknob-impl
+	sudo ${INSTALL_PROGRAM} ${DEST}/doorknob-run-impl    ${BINDIR}/doorknob-run-impl
+	sudo ${INSTALL_PROGRAM} ${SCRIPT}/doorknob   ${BINDIR}/doorknob
+	sudo ${INSTALL_PROGRAM} ${SCRIPT}/doorknob-run      ${BINDIR}/doorknob-run
+	sudo ${INSTALL_PROGRAM} ${SCRIPT}/doorknobd           ${DAEMONDIR}/doorknobd
+	sudo update-rc.d doorknobd defaults
 
 uninstall:
-	sudo rm ${BINDIR}/door-controller-impl
-	sudo rm ${BINDIR}/door-service-impl
-	sudo rm ${BINDIR}/door-controller
-	sudo rm ${BINDIR}/door-service
-	sudo rm ${DAEMONDIR}/doornob
-	sudo update-rc.d -f doornob remove
+	sudo rm ${BINDIR}/doorknob-impl
+	sudo rm ${BINDIR}/doorknob-run-impl
+	sudo rm ${BINDIR}/doorknob
+	sudo rm ${BINDIR}/doorknob-run
+	sudo rm ${DAEMONDIR}/doorknobd
+	sudo update-rc.d -f doorknobd remove
 
 deinstall: uninstall

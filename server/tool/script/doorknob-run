@@ -17,6 +17,6 @@ if [ -z $available_device ]; then
     exit 1
 fi
 
-#../bin/door-service-impl --devfile=$available_device $@
-/usr/sbin/door-service-impl --devfile=$available_device $@
+#../bin/doorknob-run-impl --devfile=$available_device $@
+/usr/sbin/doorknob-run-impl --devfile=$available_device $@
 exit 0
