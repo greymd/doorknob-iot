@@ -19,6 +19,7 @@
 #include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
+#include <syslog.h>
 
 void close_door(int fd);
 void open_door(int fd);
