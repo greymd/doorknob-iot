@@ -1,6 +1,6 @@
 <html>
 <head>
-    <link rel="apple-touch-icon" href="./img/open_icon.png" />
+    <link rel="apple-touch-icon" href="./img/icon_open.png" />
 </head>
 <body>
 <?php
