@@ -17,25 +17,25 @@ void open_door(int fd) {
 int get_door_state(int fd) {
 	char action = ACTION_STATE;
 	int state = -1;
-	int magnetValue = -1;
-	int numOfvar = -1;
-	int magnetTry = 0;
+	int magnet_value = -1;
+	int num_of_var = -1;
+	int magnet_try = 0;
 	char res[128];
 	do {
 		//dispose for all data keeped in communication buffer
 		tcflush(fd, TCIFLUSH);
 		write(fd, &action, 1);
 		read(fd, res, sizeof(res));
-		numOfvar = sscanf(res, "[%d]", &magnetValue);
-		printf("magnet_value : %d\n", magnetValue);
-		if(magnetTry >= 1000){
+		num_of_var = sscanf(res, "[%d]", &magnet_value);
+		printf("magnet_value : %d\n", magnet_value);
+		if(magnet_try >= 1000){
 			exit(1);
 		}
-		magnetTry++;
-	} while (numOfvar != 1);
+		magnet_try++;
+	} while (num_of_var != 1);
 
 	//North or Souch of magnet value
-	if (magnetValue >= MAGNET_UPPER_THRESHOLD || magnetValue <= MAGNET_LOWER_THRESHOLD){
+	if (magnet_value >= MAGNET_UPPER_THRESHOLD || magnet_value <= MAGNET_LOWER_THRESHOLD){
 		state = IS_CLOSED;
 	} else {
 		state = IS_OPENED;

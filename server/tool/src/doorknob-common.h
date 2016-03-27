@@ -1,5 +1,5 @@
 #define DEFAULT_DEVICE "/dev/ttyACM0"
-#define DEFAULT_BAUDRATE 9600
+#define DEFAULT_BAUDRATE B9600
 #define IS_CLOSED 0
 #define IS_OPENED 1
 #define IS_ON 0

@@ -6,48 +6,17 @@ int main(int argc, char *argv[]) {
 
 	/* variables for serial communication */
 	int fd, c;
-	struct termios oldtio, newtio;
+	struct termios current_io, new_io;
 	char buf[1024];
 	char devfile[1024];
-	char action;
 	int baudrate = DEFAULT_BAUDRATE;
 
-	/* settings for serial communication */
 	bzero(buf, sizeof(buf));
 	strncpy(devfile, DEFAULT_DEVICE, sizeof(devfile));
 	for (c = 1; c < argc; c++) {
 		if (1 == sscanf(argv[c], "--devfile=%s", devfile)) {
 			continue;
 		}
-
-		if (1 == sscanf(argv[c], "--baudrate=%d", &baudrate)) {
-			continue;
-		}
-	}
-
-	switch (baudrate) {
-		case 9600:
-			baudrate = B9600;
-			break;
-		case 19200:
-			baudrate = B19200;
-			break;
-		case 38400:
-			baudrate = B38400;
-			break;
-		case 57600:
-			baudrate = B57600;
-			break;
-		case 115200:
-			baudrate = B115200;
-			break;
-		case 230400:
-			baudrate = B230400;
-			break;
-		default:
-			perror("baudrate");
-			exit(-1);
-			break;
 	}
 
 	fd = open(devfile, O_RDWR | O_NOCTTY);
@@ -59,17 +28,17 @@ int main(int argc, char *argv[]) {
 	//wait until Arduino starts
 	usleep(200*10000);
 
-	tcgetattr(fd, &oldtio);
-	bzero(&newtio, sizeof(newtio));
-	newtio.c_cflag = baudrate | CRTSCTS | CS8 | CLOCAL | CREAD;
-	newtio.c_iflag = IGNPAR | ICRNL;
-	newtio.c_oflag = 0;
-	newtio.c_lflag = ICANON;
-	newtio.c_cc[VEOF] = 4;
-	newtio.c_cc[VMIN] = 1;
+	tcgetattr(fd, &current_io);
+	bzero(&new_io, sizeof(new_io));
+	new_io.c_cflag = baudrate | CRTSCTS | CS8 | CLOCAL | CREAD;
+	new_io.c_iflag = IGNPAR | ICRNL;
+	new_io.c_oflag = 0;
+	new_io.c_lflag = ICANON;
+	new_io.c_cc[VEOF] = 4;
+	new_io.c_cc[VMIN] = 1;
 
 	tcflush(fd, TCIFLUSH);
-	tcsetattr(fd, TCSANOW, &newtio);
+	tcsetattr(fd, TCSANOW, &new_io);
 
 	/* start monitoring */
 	while (1) {
@@ -84,8 +53,10 @@ int main(int argc, char *argv[]) {
 		usleep(100 * 1000); //0.5 sec
 	}
 
-	/* close actions for serial communication */
-	tcsetattr(fd, TCSANOW, &oldtio);
+	/* restore current io settings */
+	tcsetattr(fd, TCSANOW, &current_io);
+
+	/* close serial communication */
 	close(fd);
 
 	return 0;
