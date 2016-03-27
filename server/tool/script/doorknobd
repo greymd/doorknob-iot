@@ -31,10 +31,9 @@ SCRIPTNAME=/etc/init.d/$NAME
 #   2 if daemon could not be started
 do_start()
 {
-	# cheking already run?
 	if start-stop-daemon --stop --quiet --signal 0 --pidfile $PIDFILE; then
 		pid=`cat ${PIDFILE}`
-		log_warning_msg "daemon is already running? (pid=${pid})"
+		log_warning_msg "Is it already running? (pid=${pid})"
 		return 1
 	fi
 	log_daemon_msg "Starting $DESC" "${NAME}."
