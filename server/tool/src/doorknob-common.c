@@ -29,7 +29,7 @@ int get_door_state(int fd) {
 		num_of_var = sscanf(res, "[%d]", &magnet_value);
 		printf("magnet_value : %d\n", magnet_value);
 		if(magnet_try >= 1000){
-			exit(1);
+			exit(3);
 		}
 		magnet_try++;
 	} while (num_of_var != 1);
