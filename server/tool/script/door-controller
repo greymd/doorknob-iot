@@ -9,7 +9,6 @@ if (ls "$device_path" | grep -q "$device_pattern_unix"); then
     available_device="$device_path"$(ls "$device_path" | grep "$device_pattern_unix" | head -n 1)
 fi
 
-ls "$device_path" | grep "$device_pattern_mac"
 if (ls "$device_path" | grep -q "$device_pattern_mac"); then
     available_device="$device_path"$(ls "$device_path" | grep "$device_pattern_mac" | head -n 1)
 fi
