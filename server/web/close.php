@@ -4,7 +4,7 @@
 </head>
 <body>
 <?php
-    $output = shell_exec ('door-controller --close');
+    $output = shell_exec ('/usr/sbin/doorknob --close');
 ?>
 <h1>CLOSE</h1>
 </body>
