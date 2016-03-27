@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
 		}
 		old_door_state = now_door_state;
 		fflush(stdout);
-		usleep(100 * 1000); //0.5 sec
+		usleep(5 * 100000); //0.5 sec
 	}
 
 	/* restore current io settings */
