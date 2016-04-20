@@ -18,7 +18,7 @@ Let's modernize your home's door with IoT!
 
   + [Arduino Spacers](https://www.sparkfun.com/products/10927) & [Screws](https://www.sparkfun.com/products/10453)
 
-  + Servo motor
+  + [Servo motor](http://akizukidenshi.com/catalog/g/gM-01794/)
 
   + Magnet sensor
 
